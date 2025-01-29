@@ -85,15 +85,17 @@ def main(args):
         for batch in tqdm(trainLoader):
             _, cellImg, _, cellMask = batch
             cellImg = cellImg.to(device)
-            cellMask = cellMask.to(device).unsqueeze(1)
+            cellMask = cellMask.to(device).long()
 
             optim.zero_grad()
-            pred = model(cellImg)
-            loss_value = loss(pred, cellMask)
-            loss_value.backward()
-            optim.step()
+            pred = model(cellImg)  # Output shape: (B, 3, H, W)
 
-            running_train_loss += loss_value.item()
+            train_loss = loss(pred, cellMask.unsqueeze(1))  # Expecting cellMask to be (B, H, W)
+            train_loss.backward()
+            optim.step()
+            optim.zero_grad()
+
+            running_train_loss += train_loss.item()
 
         train_loss = running_train_loss / len(trainLoader)
         train_losses.append(train_loss)
@@ -106,12 +108,11 @@ def main(args):
             for batch in tqdm(valLoader):
                 _, cellImg, _, cellMask = batch
                 cellImg = cellImg.to(device)
-                cellMask = cellMask.to(device).unsqueeze(1)
+                cellMask = cellMask.to(device).long()
 
                 pred = model(cellImg)
-                loss_val = loss(pred, cellMask)
-
-                val_loss += loss_val.item()
+                val_loss = loss(pred, cellMask.unsqueeze(1))
+                val_loss += val_loss.item()
 
         val_loss /= len(valLoader)
         val_losses.append(val_loss)
@@ -122,7 +123,7 @@ def main(args):
         # save model
         if val_loss < best_val_loss:
             best_val_loss = val_loss
-            save_dir = os.path.join('output', f"lr{str(lr)}", 'non_equiv0')
+            save_dir = os.path.join('output', f"lr{str(lr)}", 'equiv1024equalparam')
         
         # Create the directory if it doesn't exist
         if not os.path.exists(save_dir):
@@ -133,7 +134,7 @@ def main(args):
         torch.save(model.state_dict(), save_path)
 
     # save losses to csv
-    loss_dir = os.path.join('output', f"lr{str(lr)}", 'equiv0', 'losses.txt')
+    loss_dir = os.path.join('output', f"lr{str(lr)}", 'equiv1024equalparam', 'losses.txt')
     if not os.path.exists(loss_dir):
         os.makedirs(loss_dir)
 
@@ -150,9 +151,9 @@ if __name__ == "__main__":
     defaultDataDir = os.path.join('data', 'ocelot2023_v1.0.1')
 
     parser = argparse.ArgumentParser(description='Train equivariant U-Net')
-    parser.add_argument('-imgch'              ,type=int  , action="store", dest='imgChannel'   , default=3             )
+    parser.add_argument('-imgch'              ,type=int  , action="store", dest='imgChannel'   , default=3               )
     parser.add_argument('-inch'               ,type=int  , action="store", dest='inputChannel'   , default=64            )
-    parser.add_argument('-ouch'              ,type=int  , action="store", dest='outputChannel'   , default=1             )
+    parser.add_argument('-ouch'              ,type=int  , action="store", dest='outputChannel'   , default=3             )
     parser.add_argument('-lr'               ,type=float, action="store", dest='learningRate'     , default=1e-4          )
     parser.add_argument('-nepoch'           ,type=int  , action="store", dest='epochs'           , default=100           )
     parser.add_argument('-batchSize'        ,type=int  , action="store", dest='batchSize'        , default=5             )
