@@ -1,2 +1,5 @@
 data/*
 logs/*
+ipynb_checkpoints/*
+model/.nfs00bc000000194c340000089a
+.ipynb_checkpoints/v1_0-checkpoint.ipynb

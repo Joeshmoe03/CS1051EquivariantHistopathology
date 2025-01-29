@@ -29,14 +29,15 @@ SSH login: $user
 SSH port: 22
 
 Use a Browser on your local machine to go to:
-localhost:https://${port}  (prefix w/ https:// if using password)
+https://${port}  (prefix w/ https:// if using password)
 ============================================================
 "
 
 # Load required modules or activate conda environment
-module load python/anaconda3
-source $(conda info --base)/etc/profile.d/conda.sh
-conda activate /home/jliem/.conda/envs/DeepLearning
+# module load python/anaconda3
+# source $(conda info --base)/etc/profile.d/conda.sh
+# conda activate /home/jliem/.conda/envs/ASLenv
+source /home/jliem/myenv/bin/activate
 
 # DON'T USE ADDRESS BELOW.
 # DO USE TOKEN BELOW
