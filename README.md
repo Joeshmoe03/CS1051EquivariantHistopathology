@@ -1,6 +1,6 @@
 ### **Structure**
 
-- v1_0.ipynb: file to generate all visualizations, evaluations etc... and test dataloader utilities
+- visualizations_and_testing.ipynb: file to generate all visualizations, evaluations etc... and test dataloader utilities
 - util/dataloader: the dataloader I use for cell segmentation
 - model/equivariant.py: the file I sourced for implementing equivariant models from previous research
 - model/equivariantUnet.py
