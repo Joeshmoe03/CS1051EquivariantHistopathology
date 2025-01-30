@@ -51,9 +51,10 @@ Many data types, medical imaging data among them, contain rotational (e.g. tumor
 Tool I used for logging info during training on cluster:
 Comet_ML: https://www.comet.com/joeshmoe03/deep-learning/view/new/panels#manage
 
-Good resource on equivariance:
-Ineresting repo: https://github.com/QUVA-Lab/e2cnn 
-Documentation: https://quva-lab.github.io/e2cnn/
-Steerable Kernels: https://arxiv.org/pdf/1911.08251 
+**Good resource on equivariance:**
+
+1. Ineresting repo: https://github.com/QUVA-Lab/e2cnn
+2. Documentation: https://quva-lab.github.io/e2cnn/
+3. Steerable Kernels: https://arxiv.org/pdf/1911.08251 
 
 
