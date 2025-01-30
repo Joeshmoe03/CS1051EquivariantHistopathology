@@ -13,6 +13,46 @@ Consider adding in rotation but not reflection for 2D.
 
 Build 3D.
 '''
+
+# build a convolution layer
+        # that takes 3 scalar images and 0 vector images as input (3 channels total)
+        # and it will output 8 scalar images, and 8 vector images (8+8*2=24 channels total)
+        # convention: at every layer, we will use the same number of scalar and vector channels
+        # to map from a scalar to a scalar it uses a kernel of the form f(|x|)
+        # to map from scalar to vector it uses a kernel of the form f(|x|)x
+        # to map from vector to scalar it uses a kernel of the form f(|x|)x^T
+        # to map from vector to vector it uses a kernel of the form f_1(|x|)id + f_2(|x|)xx^T
+        # in this example, we will use 8x3 kernels of the form f(|x|) 
+        # each scalar channel in the input is coupled to each scalar channel in the output with one convolution
+        # and we will use 8x3 kernels of the form f(|x|)x
+        # each scalar channel in the input is coupled to each vector channel in the output with one convolution
+        
+        # for a more specific example, let's say there were 3 input scalars, and 2 output scalars and 2 output vectors
+        #
+        # say I_i(x) is the ith of 3 scalar channels in the input image (i=1 means red, 2 means green 3 means blue)
+        # and Js_j(x) is the jth of 2 scalar channels in the output image
+        # and Jv_j(x) is the jth of 2 vector channels in the output image
+        # the equation is, kernels are f_ij
+        # Js_1(x) = int f_11(|x-x'|)I_1(x') dx' + int f_12(|x-x'|)I_2(x')dx' + int f_13(|x-x'|)I_3(x')dx'
+        # Js_2(x) = int f_21(|x-x'|)I_1(x') dx' + int f_22(|x-x'|)I_2(x')dx' + int f_23(|x-x'|)I_3(x')dx'        
+        # for the vector part, kernels are g_ij
+        # Jv_1(x) = int g_11(|x-x'|)(x-x')I_1(x')dx' 
+        #         + int g_12(|x-x'|)(x-x')I_2(x')dx' 
+        #         + int g_13(|x-x'|)(x-x')I_3(x')dx'
+        # note that Jv_1 has two components (x and y)
+        # Jv_2(x) = int g_21(|x-x'|)(x-x')I_1(x')dx' 
+        #         + int g_22(|x-x'|)(x-x')I_2(x')dx' 
+        #         + int g_23(|x-x'|)(x-x')I_3(x')dx'
+        # note Jv_2 also has two components
+        # the last thing the layer does is stack them on top of each other
+        # so J = [Js,Jv] # stacked on top
+        # so theres a total of 24 channels (8 scalars, 8 vector x components, and 8 vector y components)
+        # 
+        # how would you do the same thing in ecnn framework
+        # input_field_type = [trial]*3
+        # output_field_type = [trivial]*2 + [irreducible]*2
+        # I think this would be equivalent
+        
 import torch
 import numpy as np
 

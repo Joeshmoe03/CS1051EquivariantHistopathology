@@ -1,7 +1,8 @@
 #!/bin/bash
 #SBATCH --nodes=1
+#SBATCH --gres=gpu:1
 #SBATCH --ntasks-per-node=1
-#SBATCH --mem-per-cpu=10G         # Memory allocation per CPU
+#SBATCH --mem-per-cpu=32G         # Memory allocation per CPU
 #SBATCH --cpus-per-task=3         # Number of CPU cores per task
 #SBATCH --time=2:00:00            # Job time limit
 #SBATCH --partition=gpu-short     # Specify the GPU partition

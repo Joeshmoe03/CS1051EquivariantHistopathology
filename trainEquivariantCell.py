@@ -38,9 +38,9 @@ def main(args):
     testDataManifest = os.path.join(dataDir, 'test_data.csv')
 
     # we only apply augmentations for non-equivariant
-    trainTransforms = A.Compose([A.ElasticTransform(p=0.2),
-                                 A.HorizontalFlip(p=0.5),
-                                 A.RandomRotate90(p=0.5),
+    trainTransforms = A.Compose([#A.ElasticTransform(p=0.2),
+                                 #A.HorizontalFlip(p=0.5),
+                                 #A.RandomRotate90(p=0.5),
                                  #A.Resize(256, 256),# TODO: change image size to 256x256
                                  A.Normalize(mean = 0.0, std=1, always_apply=True),
                                  ToTensorV2()])
@@ -123,7 +123,7 @@ def main(args):
         # save model
         if val_loss < best_val_loss:
             best_val_loss = val_loss
-            save_dir = os.path.join('output', f"lr{str(lr)}", 'equiv1024equalparam')
+            save_dir = os.path.join('output', f"lr{str(lr)}", 'equiv1024equalparamnoaug')
         
         # Create the directory if it doesn't exist
         if not os.path.exists(save_dir):
@@ -134,11 +134,12 @@ def main(args):
         torch.save(model.state_dict(), save_path)
 
     # save losses to csv
-    loss_dir = os.path.join('output', f"lr{str(lr)}", 'equiv1024equalparam', 'losses.txt')
+    loss_dir = os.path.join('output', f"lr{str(lr)}", 'equiv1024equalparamnoaug')
     if not os.path.exists(loss_dir):
         os.makedirs(loss_dir)
 
-    with open(loss_dir, 'w') as f:
+    loss_file = os.path.join(loss_dir, 'losses.txt')
+    with open(loss_file, 'w') as f:
         writer = csv.writer(f)
         writer.writerow(['train_loss', 'val_loss'])
         for train, val in zip(train_losses, val_losses):

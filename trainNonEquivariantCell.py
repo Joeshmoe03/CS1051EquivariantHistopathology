@@ -123,7 +123,7 @@ def main(args):
         # save model
         if val_loss < best_val_loss:
             best_val_loss = val_loss
-            save_dir = os.path.join('output', f"lr{str(lr)}", 'non_equiv1024equalparam')
+            save_dir = os.path.join('output', f"lr{str(lr)}", 'non_equiv1024equalparamlong')
         
         # Create the directory if it doesn't exist
         if not os.path.exists(save_dir):
@@ -134,11 +134,12 @@ def main(args):
         torch.save(model.state_dict(), save_path)
 
     # save losses to csv
-    loss_dir = os.path.join('output', f"lr{str(lr)}", 'non_equiv1024equalparam', 'losses.txt')
+    loss_dir = os.path.join('output', f"lr{str(lr)}", 'non_equiv1024equalparamlong')
     if not os.path.exists(loss_dir):
         os.makedirs(loss_dir)
 
-    with open(loss_dir, 'w') as f:
+    loss_file = os.path.join(loss_dir, 'losses.txt')
+    with open(loss_file, 'w') as f:
         writer = csv.writer(f)
         writer.writerow(['train_loss', 'val_loss'])
         for train, val in zip(train_losses, val_losses):
