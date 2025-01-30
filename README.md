@@ -38,7 +38,7 @@ NOTE: Unless you have cluster access, I don't recommend training anything.
 4. run the v1_0.ipynb notebook to generate important remaining files and visualizations
 
 5. To train, configure the appropriate .sh script for training (according to your cluster and resources)
-6. Set up comet_ml account for training tracking and input your API key to the training script
+6. Set up comet_ml account for training tracking and input your API key as ENV var and other into to the training script
 
 ### **Motivation**
 
