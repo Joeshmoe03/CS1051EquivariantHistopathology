@@ -1,3 +1,15 @@
+### **Structure**
+
+- v1_0.ipynb: file to generate all visualizations, evaluations etc... and test dataloader utilities
+- util/dataloader: the dataloader I use for cell segmentation
+- model/equivariant.py: the file I sourced for implementing equivariant models from previous research
+- model/equivariantUnet.py
+- model/unet.py
+- model/escnnUnet.py: broken
+- visualization/: directory for all generated visualizations
+- all .sh files are used for running jupyter notebooks on the cluster and tunneling in or submitting Slurm jobs for training
+
+
 ### **Requirements**
 
 A conda environment with the following:
