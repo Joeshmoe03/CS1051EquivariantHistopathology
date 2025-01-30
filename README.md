@@ -48,7 +48,12 @@ However, this does not generalize to convolution on rotations of the input. Addi
 
 Many data types, medical imaging data among them, contain rotational (e.g. tumors are the same regardless of orientation in a WSI), reflectional (e.g. bilateral structures of brain or body), and translational symmetries. Firstly, equivariance would be useful in a medical imaging context to increase generalizability of models regardless of the orientation that data is presented. Secondly, I claim that equivariance implicitly deals with the need for certain kinds of data augmentations, improving overall training efficiency. 
 
+Tool I used for logging info during training on cluster:
 Comet_ML: https://www.comet.com/joeshmoe03/deep-learning/view/new/panels#manage
 
+Good resource on equivariance:
+Ineresting repo: https://github.com/QUVA-Lab/e2cnn 
+Documentation: https://quva-lab.github.io/e2cnn/
+Steerable Kernels: https://arxiv.org/pdf/1911.08251 
 
 
