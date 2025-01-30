@@ -23,7 +23,7 @@ from model.equivariantUnet import EqUnetVariant
 from util.dataloader import OcelotDatasetLoaderV1
 
 experiment = Experiment(
-    api_key="Fl7YrvyVQDhLRYuyUfdHS3oE8",
+    api_key="",
     project_name="deep-learning",
     workspace="joeshmoe03",
 )
