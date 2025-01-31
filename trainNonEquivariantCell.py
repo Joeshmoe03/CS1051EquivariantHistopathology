@@ -38,7 +38,8 @@ def main(args):
     testDataManifest = os.path.join(dataDir, 'test_data.csv')
 
     # we only apply augmentations for non-equivariant
-    trainTransforms = A.Compose([A.ElasticTransform(p=0.2),
+    trainTransforms = A.Compose([#TODO: NEED TO READD OLD PIXEL/NOISE AND OTHER TRANSFORMS NOW THAT I TESTED MINIMAL DATA AUGMENTATION.
+                                A.ElasticTransform(p=0.2),
                                  A.HorizontalFlip(p=0.5),
                                  A.RandomRotate90(p=0.5),
                                  #A.Resize(256, 256),# TODO: change image size to 256x256
