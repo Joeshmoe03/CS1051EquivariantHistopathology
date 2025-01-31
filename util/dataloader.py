@@ -20,7 +20,7 @@ def generate_cell_masks(annDir, partitions = ['train', 'val', 'test'], radius = 
         cellAnnFiles = os.listdir(annCellDir)
         for cellAnnFile in cellAnnFiles:
 
-            # read in the csv
+            # read in the csv: contains coordinates of cells and their class
             cellAnnPath = os.path.join(annCellDir, cellAnnFile)
 
             # maybe be empty csv if no cells
@@ -85,7 +85,7 @@ class OcelotDatasetLoaderV1(Dataset):
         self.dataManifest = np.random.permutation(self.dataManifest)
         print(f'Found {len(self.dataManifest)} images for {trainMode} mode...')
 
-        # set up paths to images and annotations
+        # path stuff (see ocelot data format stuff)
         self.tissImgAbsPath = os.path.join(self.dataDir, 'images', self.trainMode, 'tissue')
         self.cellImgAbsPath = os.path.join(self.dataDir, 'images', self.trainMode, 'cell')
         self.tissAnnAbsPath = os.path.join(self.dataDir, 'annotations', self.trainMode, 'tissue')
@@ -99,11 +99,8 @@ class OcelotDatasetLoaderV1(Dataset):
         # uses the manifest to get a sample pair
         image_name = self.dataManifest[idx]
 
-        # read in the images
         tissImg = cv2.imread(os.path.join(self.tissImgAbsPath, image_name))
         cellImg = cv2.imread(os.path.join(self.cellImgAbsPath, image_name))
-
-        # read in the annotations
         tissAnn = cv2.imread(os.path.join(self.tissAnnAbsPath, image_name.replace('.jpg','.png')), 0)
         cellAnn = cv2.imread(os.path.join(self.cellAnnAbsPath, image_name.replace('.jpg','.png')), 0)
 
