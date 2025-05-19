@@ -1,3 +1,11 @@
+### **View the Presentation**
+
+VIEW THE PRESENTATION [**HERE**]('EQUIVARIANT DEEP LEARNING FOR HISTOPATHOLOGY IMAGE SEGMENTATION.pdf')
+
+### **View the Report**
+
+VIEW THE REPORT [**HERE**]('report.pdf')
+
 ### **Structure**
 
 - visualizations_and_testing.ipynb: file to generate all visualizations, evaluations etc... and test dataloader utilities
